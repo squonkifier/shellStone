@@ -3,7 +3,7 @@
 - User instructions always override this file.
 
 # PROJECT DETAILS
-This is a zero-dependency ncurses TUI for Linux system administration, with `squonk.py` as the main entry point. Key features:
+This is a zero-dependency ncurses TUI for Linux system administration, with `shellstone.py` as the main entry point. Key features:
 - Discovers executable `.sh` and `.py` scripts in the `./scripts` subdirectory and its subdirectories.
 - Parses optional `Admin-Meta:` headers (Title, Description, Category) from script files (case-insensitive).
 - Parses script summaries from comment lines after the Admin-Meta Description line until the next `#` line.
@@ -14,14 +14,14 @@ This is a zero-dependency ncurses TUI for Linux system administration, with `squ
 
 # Modular Architecture
 
-The application has been refactored into modular components under `squonk_modules/`:
+The application has been refactored into modular components under `shellstone_modules/`:
 
 ## Module Overview
 
-### `squonk.py` (Entry Point)
-- Minimal entry point that imports from `squonk_ui` and launches the application via `curses.wrapper(main)`.
+### `shellstone.py` (Entry Point)
+- Minimal entry point that imports from `shellstone_ui` and launches the application via `curses.wrapper(main)`.
 
-### `squonk_modules/squonk_core.py` (Core Data & Discovery)
+### `shellstone_modules/shellstone_core.py` (Core Data & Discovery)
 **Constants:**
 - `SCRIPTS_DIR`: Path to scripts directory (derived from project location)
 - `PANES`: List of (display_name, directory, color_pair) tuples defining tabs
@@ -38,14 +38,14 @@ The application has been refactored into modular components under `squonk_module
 - `_parse_script_summary(path)`: Extracts summary from Admin-Meta Description until next `#` line
 - `categorize(scripts)`: Groups scripts by Category metadata
 
-### `squonk_modules/squonk_output.py` (Output Window)
+### `shellstone_modules/shellstone_output.py` (Output Window)
 - `OutputWindow` class: Full-screen curses overlay for real-time subprocess output
   - Supports scrolling (Home/End, PageUp/PageDown, Up/Down arrows)
   - Scrollbar visualization
   - Word-wrap for long lines
   - ANSI escape sequence parsing and stripping (including DEC private mode sequences)
 
-### `squonk_modules/squonk_execution.py` (Script Execution)
+### `shellstone_modules/shellstone_execution.py` (Script Execution)
 - `PYTHON_BIN`: Path to available Python interpreter (detected at import time)
 - `python_available()`: Checks if Python interpreter exists
 - `run_script(stdscr, info)`: Launches scripts via pty for TTY support
@@ -54,13 +54,13 @@ The application has been refactored into modular components under `squonk_module
   - Can terminate running scripts
 - `show_error(stdscr, message)`: Displays error box and waits for keypress (alias: `_show_soft_error`)
 
-### `squonk_modules/squonk_visual.py` (Visual Effects)
+### `shellstone_modules/shellstone_visual.py` (Visual Effects)
 - `Spinner` class: Animated selection indicator using spinner characters
 - `ParticleSystem` class: Pseudo-3D 'Celestial Flow' engine with parallax, depth scaling, and menu repulsion
   - Configurable particle layers, colors, and density
   - Supports meteor effects and twinkle animation
 
-### `squonk_modules/squonk_ui.py` (User Interface)
+### `shellstone_modules/shellstone_ui.py` (User Interface)
 - `main_menu(stdscr)`: Core TUI loop
   - Pane/tab navigation (arrow keys, vi keys h/l)
   - Category sub-tabs within panes
@@ -77,22 +77,22 @@ The application has been refactored into modular components under `squonk_module
 
 - `main(stdscr)`: Initializes curses, validates scripts dir, launches main_menu
 
-### `squonk_modules/__init__.py` (Package Exports)
+### `shellstone_modules/__init__.py` (Package Exports)
 - Re-exports all public components for convenient imports
 
 # DIRECTORY STRUCTURE
 ```
-squonkAdmin/
-├── squonk.py                    # Main entry point (minimal)
+shellStone/
+├── shellstone.py                    # Main entry point (minimal)
 ├── AGENTS.md                    # This file
 ├── README.md                    # Project documentation
-├── squonk_modules/              # Modular components
+├── shellstone_modules/              # Modular components
 │   ├── __init__.py             # Package exports
-│   ├── squonk_core.py          # Constants, data models, script discovery
-│   ├── squonk_output.py        # OutputWindow class
-│   ├── squonk_execution.py     # Script execution functions
-│   ├── squonk_visual.py        # Visual effects (Spinner, ParticleSystem)
-│   └── squonk_ui.py            # Main menu and UI functions
+│   ├── shellstone_core.py          # Constants, data models, script discovery
+│   ├── shellstone_output.py        # OutputWindow class
+│   ├── shellstone_execution.py     # Script execution functions
+│   ├── shellstone_visual.py        # Visual effects (Spinner, ParticleSystem)
+│   └── shellstone_ui.py            # Main menu and UI functions
 └── scripts/                    # Main storage folder (organized by category)
     ├── system/                 # System management scripts
     ├── packages/               # Package management scripts
