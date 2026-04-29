@@ -5,7 +5,7 @@
         ["Filesystem", "filesystem", 0],
         ["Networking", "networking", 3],
         ["Extras", "extras", 4],
-        ["Help", "help", 1]
+        ["Settings", "settings", 1]
     ],
     "META_TITLE_RE": "^#\\s*Admin-Meta:\\s*Title:\\s*(.+)$",
     "META_DESC_RE": "^#\\s*Admin-Meta:\\s*Description:\\s*(.+)$",
