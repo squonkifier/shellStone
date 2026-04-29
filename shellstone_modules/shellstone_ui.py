@@ -143,6 +143,10 @@ def main_menu(stdscr):
             indicator_pos = int((avail_width - indicator_width) * (pane_scroll_offset / max(1, total_tabs_width - avail_width)))
             indicator_pos = max(0, min(avail_width - indicator_width, indicator_pos))
             try:
+                # Blank left and right margins to prevent overflow characters
+                stdscr.addstr(2, 0, "  ")
+                if cols > 2:
+                    stdscr.addstr(2, cols - 2, "  ")
                 for x in range(avail_width):
                     stdscr.addstr(2, x + 2, "─", curses.A_DIM | curses.color_pair(6))
                 for x in range(indicator_width):
