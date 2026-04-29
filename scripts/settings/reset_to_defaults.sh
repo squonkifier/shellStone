@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Admin-Meta: Title: Reset Settings to Defaults
+# Admin-Meta: Description: Resets all shell.json settings to their default values.
+# Admin-Meta: Category: Settings
+#
+
+set -e
+
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+
+show_current() {
+    if [ -f "$SHELL_JSON" ]; then
+        echo "Current settings:"
+        jq '.' "$SHELL_JSON"
+    else
+        echo "Error: shell.json not found at $SHELL_JSON"
+        exit 1
+    fi
+}
+
+DEFAULT_JSON='{
+    "PANES": [
+        ["Main Menu", "system", 5],
+        ["Packages", "packages", 2],
+        ["Filesystem", "filesystem", 0],
+        ["Networking", "networking", 3],
+        ["Extras", "extras", 4],
+        ["Settings", "settings", 1]
+    ],
+    "META_TITLE_RE": "^#\\s*Admin-Meta:\\s*Title:\\s*(.+)$",
+    "META_DESC_RE": "^#\\s*Admin-Meta:\\s*Description:\\s*(.+)$",
+    "META_CAT_RE": "^#\\s*Admin-Meta:\\s*Category:\\s*(.+)$",
+    "SPINNER_FRAMES": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+    "PARTICLE_LAYERS": [
+        ["·", "∙", "⋅", "⁺"],
+        ["°", "∘", "⚬", "•", "◦", "⁎"],
+        ["○", "●", "‣", "✧", "✦", "☾", "*"]
+    ],
+    "PARTICLE_COLORS_BASIC": [6, 3, 5, 4, 2],
+    "PARTICLE_DENSITY": 0.06,
+    "BOTTOM_HEIGHT": 14
+}'
+
+echo "This will reset all shell.json settings to default values."
+echo ""
+show_current
+echo ""
+
+if [ -n "$1" ] && [ "$1" = "--confirm" ]; then
+    confirm="y"
+else
+    echo "Are you sure you want to reset all settings? (y/N)"
+    read -r confirm
+fi
+
+if [[ "$confirm" =~ ^[Yy]$ ]]; then
+    echo "$DEFAULT_JSON" | jq '.' > "$SHELL_JSON"
+    
+    echo ""
+    echo "Success: All settings have been reset to defaults."
+    echo ""
+    show_current
+    echo ""
+    echo "Restart shellstone to apply changes."
+else
+    echo ""
+    echo "Operation cancelled."
+    exit 0
+fi

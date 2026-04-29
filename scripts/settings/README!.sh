@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Admin-Meta: Title: Readme!
 # Admin-Meta: Description: Tells you how this program works!
+# Admin-Meta: Category: Settings
 #
 echo -e "\x1b[31m⚬○ squonkAdmin ○⚬\x1b[0m"
 echo "tiny terminal UI for fancy presentation of pre-commented shell scripts stored locally"
