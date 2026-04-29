@@ -22,9 +22,9 @@ The application has been refactored into modular components under `shellstone_mo
 - Minimal entry point that imports from `shellstone_ui` and launches the application via `curses.wrapper(main)`.
 
 ### `shellstone_modules/shellstone_core.py` (Core Data & Discovery)
-**Constants:**
-- `SCRIPTS_DIR`: Path to scripts directory (derived from project location)
-- `PANES`: List of (display_name, directory, color_pair) tuples defining tabs
+**Settings Data:** (loaded from `shell.json` at runtime)
+- `SCRIPTS_DIR`: Path to scripts directory (derived from project location: parent of `shellstone_modules/`)
+- `PANES`: List of (display_name, directory, color_pair) tuples defining tabs (directory is relative to SCRIPTS_DIR)
 - `META_*_RE`: Regex patterns for parsing Admin-Meta headers
 - `SPINNER_FRAMES`, `PARTICLE_*`: Visual effect configuration
 - `BOTTOM_HEIGHT`: Height of script summary section (14 lines)
@@ -52,7 +52,7 @@ The application has been refactored into modular components under `shellstone_mo
   - Supports interactive input (sudo, etc.)
   - Streams stdout/stderr in real-time
   - Can terminate running scripts
-- `show_error(stdscr, message)`: Displays error box and waits for keypress (alias: `_show_soft_error`)
+- `show_error(stdscr, message)`: Displays error box and waits for keypress
 
 ### `shellstone_modules/shellstone_visual.py` (Visual Effects)
 - `Spinner` class: Animated selection indicator using spinner characters
@@ -61,6 +61,7 @@ The application has been refactored into modular components under `shellstone_mo
   - Supports meteor effects and twinkle animation
 
 ### `shellstone_modules/shellstone_ui.py` (User Interface)
+- `main(stdscr)`: Initializes curses, validates scripts dir, launches main_menu
 - `main_menu(stdscr)`: Core TUI loop
   - Pane/tab navigation (arrow keys, vi keys h/l)
   - Category sub-tabs within panes
@@ -74,8 +75,6 @@ The application has been refactored into modular components under `shellstone_mo
     - Q: Quit
     - PageUp/PageDown: Page scroll
     - Home/End: Jump to top/bottom
-
-- `main(stdscr)`: Initializes curses, validates scripts dir, launches main_menu
 
 ### `shellstone_modules/__init__.py` (Package Exports)
 - Re-exports all public components for convenient imports
