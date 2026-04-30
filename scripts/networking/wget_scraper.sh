@@ -10,12 +10,16 @@
 
 echo -e "\x1b[1;32mFiles will be saved in: $PWD/scraped\x1b[0m"
 echo ""
+
 echo "Please input a URL to scrape:"
 read URL
 echo ""
+
 echo "Please input the file extensions you want to download from the page, separated by commas. [zip,mp3,omg,wow]"
-echo ""
 read FILETYPES
+echo ""
+
+# Clean up user input for proper grep formatting
 FILETYPES=$(echo "$FILETYPES" | tr ',' '|')
 SCRAPED_DIR="$PWD/scraped"
 mkdir -p "$SCRAPED_DIR"
@@ -26,7 +30,7 @@ echo "Fetching links from: $URL"
 # -q: quiet, no output
 # -O -: output to stdout
 # grep -E -o: print only matching parts (extended regex)
-# href="[^"]*\.(zip|mp3|ogg|rar|tar|gz)": matches href attributes ending in supported extensions
+# href="[^"]*\.($FILETYPES)": matches href attributes ending in reformatted user input
 # sed: extracts the URL from the href attribute
 # Sort and uniq to remove duplicate links
 LINKS=$(wget -q -O - "$URL" | \
@@ -35,7 +39,7 @@ LINKS=$(wget -q -O - "$URL" | \
         sort -u)
 
 if [ -z "$LINKS" ]; then
-    echo "No .zip, .mp3, .ogg, .rar, .tar, .gz links found on $URL."
+    echo "No $FILETYPES links found on $URL."
     exit 0
 fi
 
@@ -66,9 +70,9 @@ for LINK in $LINKS; do
     FILENAME=$(basename "$FULL_LINK")
 
     if [ -f "$SCRAPED_DIR/$FILENAME" ]; then
-        echo "Skipping $FILENAME (already exists)."
+        echo -e "Skipping $FILENAME (already exists)."
     else
-        echo "Downloading $FILENAME from $FULL_LINK..."
+        echo -e "Downloading $FILENAME from \x1b[1;32m $FULL_LINK\x1b[0m..."
         # -c: continue download if partial exists, but in this case it means
         #     if file exists, skip (as no partial will be there due to -nc)
         # -nc: no clobber, don't overwrite existing files
@@ -80,7 +84,7 @@ for LINK in $LINKS; do
             filesize=$(stat -c%s "$SCRAPED_DIR/$FILENAME" 2>/dev/null || echo 0)
             total_bytes=$((total_bytes + filesize))
         else
-            echo "Error downloading $FILENAME."
+            echo -e "Error downloading\x1b[1;32m $FILENAME\x1b[0m."
         fi
     fi
 done
@@ -92,8 +96,10 @@ else
     total_mb="0.00"
 fi
 
+echo ""
 echo "Download process completed."
-echo "Total files downloaded: $downloaded, Total size: ${total_mb} MB"
+echo ""
+echo -e "\x1b[1;32mTotal files downloaded: $downloaded, Total size: ${total_mb} MB\x1b[0m"
 echo ""
 echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"
 
