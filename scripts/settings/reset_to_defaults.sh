@@ -1,19 +1,19 @@
 #!/bin/bash
 
 # stonemeta: title: Reset Settings to Defaults
-# stonemeta: description: Resets all shell.json settings to their default values.
+# stonemeta: description: Resets all memstone.json settings to their default values.
 #
 
 set -e
 
-SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/memstone.json"
 
 show_current() {
     if [ -f "$SHELL_JSON" ]; then
         echo "Current settings:"
         jq '.' "$SHELL_JSON"
     else
-        echo "Error: shell.json not found at $SHELL_JSON"
+        echo "Error: memstone.json not found at $SHELL_JSON"
         exit 1
     fi
 }
@@ -41,7 +41,7 @@ DEFAULT_JSON='{
     "BOTTOM_HEIGHT": 14
 }'
 
-echo "This will reset all shell.json settings to default values."
+echo "This will reset all memstone.json settings to default values."
 echo ""
 show_current
 echo ""
@@ -61,7 +61,7 @@ if [[ "$confirm" =~ ^[Yy]$ ]]; then
     echo ""
     show_current
     echo ""
-    echo "Restart shellstone to apply changes."
+    echo "Restart memstone to apply changes."
 else
     echo ""
     echo "Operation cancelled."

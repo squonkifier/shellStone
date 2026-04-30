@@ -6,7 +6,7 @@
 
 set -e
 
-SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/memstone.json"
 
 show_current() {
     if [ -f "$SHELL_JSON" ]; then
@@ -14,7 +14,7 @@ show_current() {
         jq -r '.SPINNER_FRAMES[]' "$SHELL_JSON" | tr '\n' ' '
         echo ""
     else
-        echo "Error: shell.json not found at $SHELL_JSON"
+        echo "Error: memstone.json not found at $SHELL_JSON"
         exit 1
     fi
 }
@@ -73,4 +73,4 @@ echo ""
 echo "Success: Spinner style updated."
 show_current
 echo ""
-echo "Restart shellstone to apply changes."
+echo "Restart memstone to apply changes."

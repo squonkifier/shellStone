@@ -2,31 +2,31 @@
 
 set -e
 
-TARGET_DIR="${1:-$HOME/Applications/shellstone}"
+TARGET_DIR="${1:-$HOME/Applications/memstone}"
 
-echo "Uninstalling shellstone from: $TARGET_DIR"
+echo "Uninstalling memstone from: $TARGET_DIR"
 
 if [ ! -d "$TARGET_DIR" ]; then
     echo "Directory not found: $TARGET_DIR"
     exit 1
 fi
 
-remove_shellstone_from_config() {
+remove_memstone_from_config() {
     local config_file="$1"
 
     if [ -f "$config_file" ]; then
-        if grep -q "shellstone" "$config_file" 2>/dev/null; then
-            grep -v "shellstone" "$config_file" > "${config_file}.tmp" || true
+        if grep -q "memstone" "$config_file" 2>/dev/null; then
+            grep -v "memstone" "$config_file" > "${config_file}.tmp" || true
             mv "${config_file}.tmp" "$config_file"
-            echo "Removed shellstone from $config_file"
+            echo "Removed memstone from $config_file"
         fi
     fi
 }
 
-remove_shellstone_from_config "$HOME/.zshrc"
-remove_shellstone_from_config "$HOME/.bashrc"
-remove_shellstone_from_config "$HOME/.profile"
-remove_shellstone_from_config "$HOME/.bash_profile"
+remove_memstone_from_config "$HOME/.zshrc"
+remove_memstone_from_config "$HOME/.bashrc"
+remove_memstone_from_config "$HOME/.profile"
+remove_memstone_from_config "$HOME/.bash_profile"
 
 echo "Removing installation directory..."
 rm -rf "$TARGET_DIR"

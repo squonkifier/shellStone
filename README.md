@@ -1,7 +1,7 @@
-# shellStone
+# memStone
 https://github.com/user-attachments/assets/eb19355a-4f71-44d7-9754-3d293f066560
 
-tiny terminal UI for fancy presentation of pre-commented shell scripts stored locally. Geared towards system maintenance. In the spirit of [eos-welcome](https://github.com/endeavouros-team/welcome); Good for helping new users, good for one-off black book tricks whose purpose you'd forget. A Memory rock of shell ideas
+tiny terminal UI for fancy presentation of pre-commented shell scripts stored locally. Geared towards system maintenance. In the spirit of [eos-welcome](https://github.com/endeavouros-team/welcome); Good for helping new users, good for one-off black book tricks whose purpose you'd forget. your shell memory stone
 
 ## Benefits
 - Simple interface and metadata rules
@@ -13,7 +13,7 @@ tiny terminal UI for fancy presentation of pre-commented shell scripts stored lo
 - Python 3.10+ (`curses`, `subprocess`, `pathlib`, `json`)
 
 ## Usage
-Run `python3 shellstone.py`.
+Run `python3 memstone.py`.
 
 Categories are auto-populated with .sh and .py scripts when placed in their respective folders
 

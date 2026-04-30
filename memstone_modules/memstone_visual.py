@@ -1,5 +1,5 @@
 """
-Visual effects module for shellstone: Spinner and ParticleSystem classes.
+Visual effects module for memstone: Spinner and ParticleSystem classes.
 """
 
 import curses
@@ -8,7 +8,7 @@ import random
 import time
 from dataclasses import dataclass
 
-from .shellstone_core import (
+from .memstone_core import (
     PARTICLE_LAYERS, PARTICLE_DENSITY, PARTICLE_SPEED_CAP,
     SPINNER_FRAMES
 )

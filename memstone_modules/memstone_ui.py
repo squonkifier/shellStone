@@ -1,17 +1,17 @@
 """
-UI module for shellstone: Main menu and application entry point.
+UI module for memstone: Main menu and application entry point.
 """
 
 import curses
 import os
 from pathlib import Path
 
-from .shellstone_core import (
+from .memstone_core import (
     ScriptInfo, PANES, BOTTOM_HEIGHT, SCRIPTS_DIR,
     discover_scripts, categorize
 )
-from .shellstone_execution import run_script, show_error, python_available
-from .shellstone_visual import Spinner, ParticleSystem
+from .memstone_execution import run_script, show_error, python_available
+from .memstone_visual import Spinner, ParticleSystem
 
 
 # ---------------------------------------------------------------------------
@@ -97,7 +97,7 @@ def main_menu(stdscr):
         particles.render(stdscr, lines, cols)
 
         # --- Header ---
-        header = " shellStone "
+        header = " memStone "
         try:
             stdscr.attron(curses.A_BOLD | curses.A_REVERSE | curses.color_pair(5))
             stdscr.addstr(0, 0, header.center(cols)[:cols])

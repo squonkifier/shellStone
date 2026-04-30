@@ -6,7 +6,7 @@
 
 set -e
 
-SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/memstone.json"
 
 show_current() {
     if [ -f "$SHELL_JSON" ]; then
@@ -24,7 +24,7 @@ show_current() {
         echo "  7 - Green (Alternate)"
         echo "  8 - Yellow (Alternate)"
     else
-        echo "Error: shell.json not found at $SHELL_JSON"
+        echo "Error: memstone.json not found at $SHELL_JSON"
         exit 1
     fi
 }
@@ -58,7 +58,7 @@ if jq -e --arg name "$pane_name" '.PANES[] | select(.[0] == $name)' "$SHELL_JSON
     echo "Success: Color updated for pane '$pane_name' to $new_color"
     show_current
     echo ""
-    echo "Restart shellstone to apply changes."
+    echo "Restart memstone to apply changes."
 else
     echo "Error: Pane '$pane_name' not found."
     exit 1

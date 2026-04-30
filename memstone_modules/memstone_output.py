@@ -1,5 +1,5 @@
 """
-Output module for shellstone: OutputWindow class for real-time script output.
+Output module for memstone: OutputWindow class for real-time script output.
 """
 
 import curses

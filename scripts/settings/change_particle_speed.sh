@@ -7,7 +7,7 @@
 
 set -e
 
-SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/memstone.json"
 
 show_current() {
     if [ -f "$SHELL_JSON" ]; then
@@ -15,7 +15,7 @@ show_current() {
         echo "Current particle speed cap: $current ($(echo "$current * 100" | bc)%)"
         echo "  (1.0 = full speed, 0.3 = 30% speed, 0.1 = 10% speed)"
     else
-        echo "Error: shell.json not found at $SHELL_JSON"
+        echo "Error: memstone.json not found at $SHELL_JSON"
         exit 1
     fi
 }
@@ -54,7 +54,7 @@ if validate_input "$new_speed"; then
     echo "Success: Particle speed cap updated to $new_speed ($(echo "$new_speed * 100" | bc)%)"
     show_current
     echo ""
-    echo "Restart shellstone to apply changes."
+    echo "Restart memstone to apply changes."
 else
     echo ""
     echo "Operation cancelled."

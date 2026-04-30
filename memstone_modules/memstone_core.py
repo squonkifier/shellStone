@@ -1,5 +1,5 @@
 """
-Core module for shellstone: Constants, data models, and script discovery.
+Core module for memstone: Constants, data models, and script discovery.
 """
 
 import os
@@ -15,7 +15,7 @@ from pathlib import Path
 # Bundled locations (relative to this file)
 BUNDLED_BASE_DIR = Path(__file__).parent.parent
 BUNDLED_SCRIPTS_DIR = BUNDLED_BASE_DIR / "scripts"
-BUNDLED_CONFIG_PATH = BUNDLED_BASE_DIR / "shell.json"
+BUNDLED_CONFIG_PATH = BUNDLED_BASE_DIR / "memstone.json"
 
 # Global state for configuration (will be initialized in load_configuration)
 SCRIPTS_DIR = BUNDLED_SCRIPTS_DIR
@@ -31,14 +31,14 @@ PARTICLE_SPEED_CAP = 1.0
 BOTTOM_HEIGHT = 14
 
 def load_configuration():
-    """Load configuration from shell.json and set up script directories.
+    """Load configuration from memstone.json and set up script directories.
     Checks current working directory first, then falls back to bundled files.
     """
     global SCRIPTS_DIR, _config, PANES, META_TITLE_RE, META_DESC_RE, META_CMD_RE
     global SPINNER_FRAMES, PARTICLE_LAYERS, PARTICLE_DENSITY, PARTICLE_SPEED_CAP, BOTTOM_HEIGHT
 
     # 1. Determine Config Path
-    local_config = Path.cwd() / "shell.json"
+    local_config = Path.cwd() / "memstone.json"
     if local_config.exists():
         config_path = local_config
     else:

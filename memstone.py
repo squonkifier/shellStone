@@ -28,10 +28,10 @@ if __name__ == "__main__":
     # This ensures that load_configuration() (called during core import or explicitly)
     # sees the correct current working directory for local script/config discovery.
     try:
-        from shellstone_modules.shellstone_core import load_configuration
+        from memstone_modules.memstone_core import load_configuration
         load_configuration()
         
-        from shellstone_modules.shellstone_ui import main
+        from memstone_modules.memstone_ui import main
         import curses
         
         curses.wrapper(main)

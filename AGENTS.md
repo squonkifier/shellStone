@@ -3,7 +3,7 @@
 - User instructions always override this file.
 
 # PROJECT DETAILS
-This is a zero-dependency ncurses TUI for Linux system administration, with `shellstone.py` as the main entry point. Key features:
+This is a zero-dependency ncurses TUI for Linux system administration, with `memstone.py` as the main entry point. Key features:
 - Discovers executable `.sh` and `.py` scripts in the `./scripts` subdirectory and its subdirectories.
 - Parses optional `stonemeta:` headers (title, description, command) from script files (case-insensitive).
 - Parses script summaries from comment lines after the stonemeta description line until the next `#` line.
@@ -14,22 +14,22 @@ This is a zero-dependency ncurses TUI for Linux system administration, with `she
 
 # Modular Architecture
 
-The application is organized into modular components under `shellstone_modules/`:
+The application is organized into modular components under `memstone_modules/`:
 
 ## Module Overview
 
-### `shellstone.py` (Entry Point)
+### `memstone.py` (Entry Point)
 - Minimal entry point that handles setting the working directory (either from command-line arguments or defaulting to the invoking terminal's CWD).
 - Defer module imports until after the working directory is set, ensuring correct configuration loading.
 - Launches the application via `curses.wrapper(main)`.
 
-### `shellstone_modules/shellstone_core.py` (Core Data & Discovery)
-**Dynamic Configuration:** (loaded from `shell.json` at runtime, respecting CWD)
-- Checks for a local `shell.json` in the current working directory first; falls back to bundled configuration if not found.
+### `memstone_modules/memstone_core.py` (Core Data & Discovery)
+**Dynamic Configuration:** (loaded from `memstone.json` at runtime, respecting CWD)
+- Checks for a local `memstone.json` in the current working directory first; falls back to bundled configuration if not found.
 - **`SCRIPTS_DIR`**: Path to the scripts directory. It is determined dynamically: checks for a local `scripts/` directory in the current working directory, then falls back to the bundled scripts directory.
 - `PANES`: List of (display_name, directory, color_pair) tuples defining tabs (directory is relative to `SCRIPTS_DIR`)
 - `META_*_RE`: Regex patterns for parsing stonemeta headers
-- `SPINNER_FRAMES`, `PARTICLE_LAYERS`: Visual effect configuration (can be overridden by local `shell.json`)
+- `SPINNER_FRAMES`, `PARTICLE_LAYERS`: Visual effect configuration (can be overridden by local `memstone.json`)
 - `PARTICLE_DENSITY`: Controls number of background particles
 - `PARTICLE_SPEED_CAP`: Maximum particle velocity multiplier (default 0.3 = 30% speed)
 - `BOTTOM_HEIGHT`: Height of script summary section (14 lines)
@@ -44,7 +44,7 @@ The application is organized into modular components under `shellstone_modules/`
 - `_parse_script_summary(path)`: Extracts summary from stonemeta description until next `#` line
 - `categorize(scripts)`: Returns `{"Scripts": scripts}` (command metadata shown in summary)
 
-### `shellstone_modules/shellstone_output.py` (Output Window)
+### `memstone_modules/memstone_output.py` (Output Window)
 - `OutputWindow` class: Full-screen or subwindow overlay for real-time subprocess output
   - Supports scrolling (Home/End, PageUp/PageDown, Up/Down arrows)
   - Scrollbar visualization
@@ -52,7 +52,7 @@ The application is organized into modular components under `shellstone_modules/`
   - ANSI escape sequence parsing and stripping (including DEC private mode sequences)
   - Interactive input support for running scripts
 
-### `shellstone_modules/shellstone_execution.py` (Script Execution)
+### `memstone_modules/memstone_execution.py` (Script Execution)
 - `PYTHON_BIN`: Path to available Python interpreter (detected at import time)
 - `python_available()`: Checks if Python interpreter exists
 - `run_script(stdscr, info, output_win=None)`: Launches scripts via pty for TTY support
@@ -61,8 +61,8 @@ The application is organized into modular components under `shellstone_modules/`
   - Can terminate running scripts
 - `show_error(stdscr, message)`: Displays error box and waits for keypress
 
-### `shellstone_modules/shellstone_visual.py` (Visual Effects)
-- `Spinner` class: Animated selection indicator using Braille spinner characters (configurable via `shell.json`)
+### `memstone_modules/memstone_visual.py` (Visual Effects)
+- `Spinner` class: Animated selection indicator using Braille spinner characters (configurable via `memstone.json`)
 - `ParticleSystem` class: Pseudo-3D 'Celestial Flow' engine with parallax, depth scaling, and menu repulsion
   - Configurable particle layers, colors (256-color support), and density
   - Organic movement with drag, velocity clamping, and drift phases
@@ -70,7 +70,7 @@ The application is organized into modular components under `shellstone_modules/`
   - Surprise events: star showers, swirls, and sparkle bursts near menu
   - Particles fade out organically based on remaining life
 
-### `shellstone_modules/shellstone_ui.py` (User Interface)
+### `memstone_modules/memstone_ui.py` (User Interface)
 - `main(stdscr)`: Initializes curses, validates scripts dir, launches main_menu
 - `main_menu(stdscr)`: Core TUI loop
   - Pane/tab navigation (arrow keys, vi keys h/l)
@@ -86,23 +86,23 @@ The application is organized into modular components under `shellstone_modules/`
     - PageUp/PageDown: Page scroll
     - Home/End: Jump to top/bottom
 
-### `shellstone_modules/__init__.py` (Package Exports)
+### `memstone_modules/__init__.py` (Package Exports)
 - Exports public API: `ScriptInfo`, `PANES`, `discover_scripts`, `categorize`, `OutputWindow`, `run_script`, `show_error`, `Spinner`, `ParticleSystem`, `main`
 
 # DIRECTORY STRUCTURE
 ```
-shellStone/
-├── shellstone.py                    # Main entry point (minimal)
-├── shell.json                      # Runtime configuration (local overrides supported)
+memStone/
+├── memstone.py                    # Main entry point (minimal)
+├── memstone.json                    # Runtime configuration (local overrides supported)
 ├── AGENTS.md                       # This file
 ├── README.md                       # Project documentation
-├── shellstone_modules/             # Modular components
+├── memstone_modules/             # Modular components
 │   ├── __init__.py                # Package exports
-│   ├── shellstone_core.py         # Dynamic config, data models, script discovery
-│   ├── shellstone_output.py       # OutputWindow class
-│   ├── shellstone_execution.py    # Script execution functions
-│   ├── shellstone_visual.py       # Visual effects (Spinner, ParticleSystem)
-│   └── shellstone_ui.py           # Main menu and UI functions
+│   ├── memstone_core.py         # Dynamic config, data models, script discovery
+│   ├── memstone_output.py       # OutputWindow class
+│   ├── memstone_execution.py    # Script execution functions
+│   ├── memstone_visual.py       # Visual effects (Spinner, ParticleSystem)
+│   └── memstone_ui.py           # Main menu and UI functions
 └── scripts/                       # Main storage folder (organized by category)
     ├── system/                    # System management scripts
     ├── packages/                  # Package management scripts

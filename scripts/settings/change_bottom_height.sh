@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # stonemeta: title: Change Bottom Panel Height
-# stonemeta: description: Modifies the bottom panel height in shell.json configuration file.
+# stonemeta: description: Modifies the bottom panel height in memstone.json configuration file.
 #
 
 set -e
 
-SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/shell.json"
+SHELL_JSON="$(dirname "$(dirname "$(dirname "$(readlink -f "$0")")")")/memstone.json"
 
 # Function to display current height
 show_current() {
@@ -14,7 +14,7 @@ show_current() {
         current=$(jq '.BOTTOM_HEIGHT' "$SHELL_JSON")
         echo "Current bottom panel height: $current"
     else
-        echo "Error: shell.json not found at $SHELL_JSON"
+        echo "Error: memstone.json not found at $SHELL_JSON"
         exit 1
     fi
 }
@@ -59,7 +59,7 @@ if validate_input "$new_height"; then
     echo "Success: Bottom panel height updated to $new_height"
     show_current
     echo ""
-    echo "Restart shellstone to apply changes."
+    echo "Restart memstone to apply changes."
 else
     echo ""
     echo "Operation cancelled."

@@ -1,5 +1,5 @@
 """
-Execution module for shellstone: Script execution and error handling.
+Execution module for memstone: Script execution and error handling.
 """
 
 import curses
@@ -14,8 +14,8 @@ import sys
 import time
 from pathlib import Path
 
-from .shellstone_core import ScriptInfo, SCRIPTS_DIR
-from .shellstone_output import OutputWindow
+from .memstone_core import ScriptInfo, SCRIPTS_DIR
+from .memstone_output import OutputWindow
 
 
 # ---------------------------------------------------------------------------
