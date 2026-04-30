@@ -7,3 +7,5 @@ pacman -Qqe | tee ~/packagelist-explicit.log
 echo ""
         echo -e "\x1b[1;32mPackagelist exported to ~/packagelist-explicit.log\x1b[0m"
         echo ""
+        echo -e "\x1b[1;32mPress Ctr+X to return to main menu\x1b[0m"
+echo ""

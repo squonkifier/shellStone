@@ -41,5 +41,5 @@ echo ""
 total_mb=$((total_deleted / 1024 / 1024))
 echo -e "Total size of deleted files: \x1b[1;32m${total_mb} MB\x1b[0m"
 echo ""
-echo -e "\x1b[1;32mPress Q to return to main menu\x1b[0m"
+echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"
 

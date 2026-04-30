@@ -282,7 +282,7 @@ def main_menu(stdscr):
         stdscr.refresh()
         ch = stdscr.getch()
 
-        if ch in (ord("q"), ord("Q")):
+        if ch == 24:  # Ctrl+X
             break
         elif ch in (curses.KEY_UP, ord("k")):
             current_pane['selected_item_idx'] -= 1

@@ -8,7 +8,7 @@ echo ""
 
 echo -e "\x1b[31m⚬○ Usage ○⚬\x1b[0m"
 echo "⇆⇅ - Move Selection"
-echo "Q - Return to Main Menu"
+echo "Ctrl+x - Return to Main Menu / Quit"
 echo "Enter - Activate Script"
 echo ""
 echo "categories are auto-populated with .sh and .py scripts placed in their respective folder category names inside ./scripts"

@@ -3,7 +3,7 @@
 # stonemeta: description: List all systemd services that have failed, are inactive, or are in a halted state. Helps identify services that need attention.
 # stonemeta: command: systemctl list-units --type=service --state=[failed/inactive/activating]
 # Shows failed units, inactive (dead) services, and services with error conditions.
-# Use arrow keys to scroll, Q to return.
+# Use arrow keys to scroll, Ctrl+X to return.
 
 echo "=== Failed Services ==="
 echo ""
@@ -34,4 +34,4 @@ systemctl list-units --type=service --state=activating --state=deactivating --st
     awk '!seen[$0]++'
 
 echo ""
-echo -e "\x1b[1;32mPress Q to return to main menu\x1b[0m"
+echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"

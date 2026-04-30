@@ -7,4 +7,4 @@ echo "Please enter your root password:"
 yay --noprogressbar --noconfirm
 
 echo ""
-echo -e "\x1b[1;32mComplete! Press Q to return to main menu!\x1b[0m"
+echo -e "\x1b[1;32mComplete! Press Ctrl+X to return to main menu!\x1b[0m"

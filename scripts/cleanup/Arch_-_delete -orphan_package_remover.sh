@@ -31,4 +31,4 @@ sudo pacman -Rs $(pacman -Qdtq) 2>/dev/null
 
 echo ""
 total_mb=$((total_deleted / 1024 / 1024))
-echo -e "\x1b[1;32mComplete! Recovered approximately ${total_mb} MB. Press Q to return to main menu!\x1b[0m"
+echo -e "\x1b[1;32mComplete! Recovered approximately ${total_mb} MB. Press Ctrl+X to return to main menu!\x1b[0m"

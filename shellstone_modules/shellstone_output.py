@@ -3,7 +3,10 @@ Output module for shellstone: OutputWindow class for real-time script output.
 """
 
 import curses
+import os
 import re
+import signal
+import subprocess
 from typing import Optional
 
 
@@ -246,12 +249,26 @@ class OutputWindow:
 
         self.window.refresh()
 
-    def wait_for_quit(self):
-        """Block until user presses 'q' or 'Q', then clear scrollback."""
+    def wait_for_quit(self, proc=None):
+        """Block until user presses Ctrl+X, then clear scrollback.
+        
+        Args:
+            proc: Optional subprocess.Popen object. If provided and still running,
+                  sends SIGINT when 'q' is pressed to ensure script halts.
+        """
         self.stdscr.nodelay(False)
         while True:
             ch = self.window.getch()
-            if ch in (ord("q"), ord("Q")):
+            if ch == 24:  # Ctrl+X
+                if proc and proc.poll() is None:
+                    try:
+                        os.killpg(os.getpgid(proc.pid), signal.SIGINT)
+                    except (ProcessLookupError, OSError):
+                        pass
+                    try:
+                        proc.wait(timeout=2)
+                    except subprocess.TimeoutExpired:
+                        proc.kill()
                 break
             elif ch == curses.KEY_HOME:
                 self.scroll_offset = 99999

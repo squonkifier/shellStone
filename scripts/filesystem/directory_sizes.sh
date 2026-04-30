@@ -12,7 +12,7 @@ target_dir=${target_dir:-.}
 if [ ! -d "$target_dir" ]; then
     echo -e "\x1b[1;31mError: Directory '$target_dir' not found.\x1b[0m"
     echo ""
-    echo -e "\x1b[1;32mPress Q to return to main menu\x1b[0m"
+    echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"
     exit 1
 fi
 
@@ -25,4 +25,4 @@ echo "Total:"
 du -sh "$target_dir" 2>/dev/null
 
 echo ""
-echo -e "\x1b[1;32mPress Q to return to main menu\x1b[0m"
+echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"

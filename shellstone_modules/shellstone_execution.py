@@ -8,6 +8,7 @@ import os
 import pty
 import select
 import shutil
+import signal
 import subprocess
 import sys
 import time
@@ -113,8 +114,11 @@ def run_script(stdscr, info: ScriptInfo, output_win: Optional[curses.window] = N
 
             ch = win.window.getch()
             if ch != -1:
-                if ch in (ord("q"), ord("Q")):
-                    proc.terminate()
+                if ch == 24:  # Ctrl+X
+                    try:
+                        os.killpg(os.getpgid(proc.pid), signal.SIGINT)
+                    except (ProcessLookupError, OSError):
+                        pass
                     try:
                         proc.wait(timeout=2)
                     except subprocess.TimeoutExpired:
@@ -159,7 +163,7 @@ def run_script(stdscr, info: ScriptInfo, output_win: Optional[curses.window] = N
 
         win.flush()
         win.window.nodelay(False)
-        win.wait_for_quit()
+        win.wait_for_quit(proc)
 
     os.close(master_fd)
 
