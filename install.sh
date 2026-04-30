@@ -15,7 +15,7 @@ mkdir -p "$TARGET_DIR"
 mkdir -p "$BIN_DIR"
 
 echo "Copying files..."
-cp -r memstone.py memstone_modules memstone.json scripts "$TARGET_DIR/"
+cp -r memstone.py memstone_modules config.json scripts "$TARGET_DIR/"
 cp memstone "$BIN_DIR/"
 rm -f "$TARGET_DIR/memstone"
 

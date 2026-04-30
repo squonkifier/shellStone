@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # stonemeta: title: HTTP Server
 # stonemeta: description: Fire up a quick webserver for local network filesharing purposes.
+# stonemeta: command: python -m http.server 8080
+
 echo -e "\x1b[1;32m#WARNING! The local working directory will be shared: $PWD\x1b[0m"
 echo ""
 echo "Are you sure? Y/n"

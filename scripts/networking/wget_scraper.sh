@@ -2,18 +2,19 @@
 # stonemeta: title: Webpage Scraper
 # stonemeta: description: Quickly scrape files from a website. Paste your URL into the script, and it will download loose files from the wepage. Supports zip|mp3|ogg|rar|tar|gz
 
-echo -e "\x1b[1;32mFiles will be saved in: $PWD\x1b[0m"
+echo -e "\x1b[1;32mFiles will be saved in: $PWD/scraped\x1b[0m"
 echo "Please input a URL to scrape:"
 read URL
-DOWNLOAD_DIR="." # Current working directory
+SCRAPED_DIR="$PWD/scraped"
+mkdir -p "$SCRAPED_DIR"
 
 echo "Fetching links from: $URL"
 
-# Use wget to get the page content, then grep and sed to extract .zip and .mp3 links
+# Use wget to get the page content, then grep and sed to extract supported file links
 # -q: quiet, no output
 # -O -: output to stdout
 # grep -E -o: print only matching parts (extended regex)
-# href="[^"]*\.(zip|mp3)": matches href attributes ending in .zip or .mp3
+# href="[^"]*\.(zip|mp3|ogg|rar|tar|gz)": matches href attributes ending in supported extensions
 # sed: extracts the URL from the href attribute
 # Sort and uniq to remove duplicate links
 LINKS=$(wget -q -O - "$URL" | \
@@ -22,13 +23,17 @@ LINKS=$(wget -q -O - "$URL" | \
         sort -u)
 
 if [ -z "$LINKS" ]; then
-    echo "No .zip or .mp3 links found on $URL."
+    echo "No .zip, .mp3, .ogg, .rar, .tar, .gz links found on $URL."
     exit 0
 fi
 
-echo "Found the following .zip and .mp3 files to download:"
+echo "Found the following files to download:"
 echo "$LINKS"
 echo ""
+
+# Initialize counters
+downloaded=0
+total_bytes=0
 
 # Loop through each found link and download
 for LINK in $LINKS; do
@@ -48,24 +53,37 @@ for LINK in $LINKS; do
 
     FILENAME=$(basename "$FULL_LINK")
 
-    if [ -f "$DOWNLOAD_DIR/$FILENAME" ]; then
+    if [ -f "$SCRAPED_DIR/$FILENAME" ]; then
         echo "Skipping $FILENAME (already exists)."
     else
         echo "Downloading $FILENAME from $FULL_LINK..."
         # -c: continue download if partial exists, but in this case it means
         #     if file exists, skip (as no partial will be there due to -nc)
         # -nc: no clobber, don't overwrite existing files
-        # -P "$DOWNLOAD_DIR": save files to the specified directory
-        wget -q -nc -P "$DOWNLOAD_DIR" "$FULL_LINK"
+        # -P "$SCRAPED_DIR": save files to the specified directory
+        wget -q -nc -P "$SCRAPED_DIR" "$FULL_LINK"
         if [ $? -eq 0 ]; then
             echo "$FILENAME downloaded successfully."
+            downloaded=$((downloaded+1))
+            filesize=$(stat -c%s "$SCRAPED_DIR/$FILENAME" 2>/dev/null || echo 0)
+            total_bytes=$((total_bytes + filesize))
         else
             echo "Error downloading $FILENAME."
         fi
     fi
 done
 
+# Calculate total size in MB
+if [ $total_bytes -gt 0 ]; then
+    total_mb=$(awk "BEGIN {printf \"%.2f\", $total_bytes/1024/1024}")
+else
+    total_mb="0.00"
+fi
+
 echo "Download process completed."
+echo "Total files downloaded: $downloaded, Total size: ${total_mb} MB"
+echo ""
+echo -e "\x1b[1;32mPress Ctrl+X to return to main menu\x1b[0m"
 
 
 
