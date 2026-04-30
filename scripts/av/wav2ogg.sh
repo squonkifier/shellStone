@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # stonemeta: title: WAV to OGG converter
-# stonemeta: description: Converts all .wav files in your current directory into Ogg Vorbis files, then deletes the WAVs. Quality level 8. Big space savings.
+# stonemeta: description: Converts all .wav files in your current directory into Ogg Vorbis files, then deletes the WAVs. Quality level 8. Big space savings. REQUIRES FFMPEG
 # stonemeta: command: for f in *.wav; do ffmpeg -i "$f" -c:a libvorbis -q:a 8 "${f%.wav}.ogg" && rm "$f"
 #
 

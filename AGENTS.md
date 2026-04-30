@@ -19,14 +19,17 @@ The application is organized into modular components under `shellstone_modules/`
 ## Module Overview
 
 ### `shellstone.py` (Entry Point)
-- Minimal entry point that imports from `shellstone_ui` and launches the application via `curses.wrapper(main)`.
+- Minimal entry point that handles setting the working directory (either from command-line arguments or defaulting to the invoking terminal's CWD).
+- Defer module imports until after the working directory is set, ensuring correct configuration loading.
+- Launches the application via `curses.wrapper(main)`.
 
 ### `shellstone_modules/shellstone_core.py` (Core Data & Discovery)
-**Settings Data:** (loaded from `shell.json` at runtime)
-- `SCRIPTS_DIR`: Path to scripts directory (derived from project location: parent of `shellstone_modules/`)
-- `PANES`: List of (display_name, directory, color_pair) tuples defining tabs (directory is relative to SCRIPTS_DIR)
+**Dynamic Configuration:** (loaded from `shell.json` at runtime, respecting CWD)
+- Checks for a local `shell.json` in the current working directory first; falls back to bundled configuration if not found.
+- **`SCRIPTS_DIR`**: Path to the scripts directory. It is determined dynamically: checks for a local `scripts/` directory in the current working directory, then falls back to the bundled scripts directory.
+- `PANES`: List of (display_name, directory, color_pair) tuples defining tabs (directory is relative to `SCRIPTS_DIR`)
 - `META_*_RE`: Regex patterns for parsing stonemeta headers
-- `SPINNER_FRAMES`, `PARTICLE_LAYERS`: Visual effect configuration
+- `SPINNER_FRAMES`, `PARTICLE_LAYERS`: Visual effect configuration (can be overridden by local `shell.json`)
 - `PARTICLE_DENSITY`: Controls number of background particles
 - `PARTICLE_SPEED_CAP`: Maximum particle velocity multiplier (default 0.3 = 30% speed)
 - `BOTTOM_HEIGHT`: Height of script summary section (14 lines)
@@ -35,6 +38,7 @@ The application is organized into modular components under `shellstone_modules/`
 - `ScriptInfo` dataclass: Stores `path`, `title`, `description`, `command`, `summary`, `command_explicit`, and derived `name` property
 
 **Functions:**
+- `load_configuration()`: Loads configuration dynamically based on CWD.
 - `discover_scripts(directory)`: Finds .sh/.py files, parses metadata, sets defaults for missing fields
 - `_parse_metadata(info, path)`: Parses stonemeta headers from script files
 - `_parse_script_summary(path)`: Extracts summary from stonemeta description until next `#` line
@@ -58,7 +62,7 @@ The application is organized into modular components under `shellstone_modules/`
 - `show_error(stdscr, message)`: Displays error box and waits for keypress
 
 ### `shellstone_modules/shellstone_visual.py` (Visual Effects)
-- `Spinner` class: Animated selection indicator using Braille spinner characters
+- `Spinner` class: Animated selection indicator using Braille spinner characters (configurable via `shell.json`)
 - `ParticleSystem` class: Pseudo-3D 'Celestial Flow' engine with parallax, depth scaling, and menu repulsion
   - Configurable particle layers, colors (256-color support), and density
   - Organic movement with drag, velocity clamping, and drift phases
@@ -89,12 +93,12 @@ The application is organized into modular components under `shellstone_modules/`
 ```
 shellStone/
 ├── shellstone.py                    # Main entry point (minimal)
-├── shell.json                      # Runtime configuration
+├── shell.json                      # Runtime configuration (local overrides supported)
 ├── AGENTS.md                       # This file
 ├── README.md                       # Project documentation
 ├── shellstone_modules/             # Modular components
 │   ├── __init__.py                # Package exports
-│   ├── shellstone_core.py         # Constants, data models, script discovery
+│   ├── shellstone_core.py         # Dynamic config, data models, script discovery
 │   ├── shellstone_output.py       # OutputWindow class
 │   ├── shellstone_execution.py    # Script execution functions
 │   ├── shellstone_visual.py       # Visual effects (Spinner, ParticleSystem)
