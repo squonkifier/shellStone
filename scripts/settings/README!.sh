@@ -27,4 +27,4 @@ echo "Provides summary of the script in the main presentation area"
 echo ""
 
 echo -e "\x1b[1;32m# stonemeta: command: \x1b[0m"
-echo "TBD"
+echo "Shows a representation of the script's shell commands as green text in the summary area"

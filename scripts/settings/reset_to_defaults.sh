@@ -2,7 +2,6 @@
 
 # stonemeta: title: Reset Settings to Defaults
 # stonemeta: description: Resets all shell.json settings to their default values.
-# stonemeta: command: Settings
 #
 
 set -e

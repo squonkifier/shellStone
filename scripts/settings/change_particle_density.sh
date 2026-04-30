@@ -2,7 +2,6 @@
 
 # stonemeta: title: Change Particle Density
 # stonemeta: description: Modifies the particle density for the background animation effect.
-# stonemeta: command: Settings
 #
 
 set -e

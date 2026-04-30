@@ -3,7 +3,7 @@
 # stonemeta: description: Clean the package manager cache. Removes old package files to free up disk space.
 # stonemeta: command: rm -rf .cache/yay, /var/cache/pacman
 #
-echo "Choose Y/n and press enter"
+echo "Deleting package caches. Proceed? Y/n"
 read -p "> " choice
 
 case $choice in

@@ -2,7 +2,6 @@
 
 # stonemeta: title: Change Bottom Panel Height
 # stonemeta: description: Modifies the bottom panel height in shell.json configuration file.
-# stonemeta: command: Settings
 #
 
 set -e

@@ -2,7 +2,6 @@
 
 # stonemeta: title: Change Pane Color
 # stonemeta: description: Changes the color scheme for a specific pane/tab.
-# stonemeta: command: Settings
 #
 
 set -e
