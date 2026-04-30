@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# stonemeta: title: Readme!
+# stonemeta: title: README.sh
 # stonemeta: description: Tells you how this program works!
 #
 echo -e "\x1b[31m⚬○ memStone ○⚬\x1b[0m"
@@ -28,3 +28,5 @@ echo ""
 
 echo -e "\x1b[1;32m# stonemeta: command: \x1b[0m"
 echo "Shows a representation of the script's shell commands as green text in the summary area"
+echo ""
+echo ""
