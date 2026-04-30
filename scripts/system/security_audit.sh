@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Current Active Root Processes
-# Admin-Meta: Description: Performs a quick audit of common security-related settings including open ports, running root processes, and sudo access.
+# stonemeta: title: Current Active Root Processes
+# stonemeta: description: Performs a quick audit of common security-related settings including open ports, running root processes, and sudo access.
 #
 # Note: Some checks may require sudo to be fully effective.
 

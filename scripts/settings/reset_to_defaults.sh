@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Admin-Meta: Title: Reset Settings to Defaults
-# Admin-Meta: Description: Resets all shell.json settings to their default values.
-# Admin-Meta: Category: Settings
+# stonemeta: title: Reset Settings to Defaults
+# stonemeta: description: Resets all shell.json settings to their default values.
+# stonemeta: command: Settings
 #
 
 set -e
@@ -28,9 +28,9 @@ DEFAULT_JSON='{
         ["Extras", "extras", 4],
         ["Settings", "settings", 1]
     ],
-    "META_TITLE_RE": "^#\\s*Admin-Meta:\\s*Title:\\s*(.+)$",
-    "META_DESC_RE": "^#\\s*Admin-Meta:\\s*Description:\\s*(.+)$",
-    "META_CAT_RE": "^#\\s*Admin-Meta:\\s*Category:\\s*(.+)$",
+    "META_TITLE_RE": "^#\\s*stonemeta:\\s*title:\\s*(.+)$",
+    "META_DESC_RE": "^#\\s*stonemeta:\\s*description:\\s*(.+)$",
+    "META_CAT_RE": "^#\\s*stonemeta:\\s*command:\\s*(.+)$",
     "SPINNER_FRAMES": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
     "PARTICLE_LAYERS": [
         ["·", "∙", "⋅", "⁺"],

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Ping Test
-# Admin-Meta: Description: Test connectivity to hosts with ping. Checks if remote hosts are reachable.
+# stonemeta: title: Ping Test
+# stonemeta: description: Test connectivity to hosts with ping. Checks if remote hosts are reachable.
 #
 # Sends 4 ping packets and reports packet loss and average latency.
 # Useful for diagnosing network issues.

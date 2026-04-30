@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Admin-Meta: Title: Change Spinner Style
-# Admin-Meta: Description: Changes the spinner animation frames used for the selection indicator.
-# Admin-Meta: Category: Settings
+# stonemeta: title: Change Spinner Style
+# stonemeta: description: Changes the spinner animation frames used for the selection indicator.
+# stonemeta: command: Settings
 #
 
 set -e

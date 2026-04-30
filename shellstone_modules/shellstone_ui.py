@@ -36,15 +36,15 @@ def main_menu(stdscr):
     pane_data = []
     for name, directory, color_pair in PANES:
         scripts = discover_scripts(directory)
-        categories = categorize(scripts)
+        commands = categorize(scripts)
         pane_data.append({
             'name': name,
             'directory': directory,
             'color_pair': color_pair,
             'scripts': scripts,
-            'categories': categories,
-            'category_names': list(categories.keys()),
-            'selected_cat_idx': 0,
+            'commands': commands,
+            'command_names': list(commands.keys()),
+            'selected_cmd_idx': 0,
             'selected_item_idx': 0,
             'scroll_top': 0,
         })
@@ -91,8 +91,8 @@ def main_menu(stdscr):
         
         top_section_height = lines - bottom_h
         current_pane = pane_data[selected_pane_idx]
-        category_names = current_pane['category_names']
-        selected_cat_idx = current_pane['selected_cat_idx']
+        command_names = current_pane['command_names']
+        selected_cmd_idx = current_pane['selected_cmd_idx']
 
         # Render background particles
         particles.render(stdscr, lines, cols)
@@ -138,7 +138,7 @@ def main_menu(stdscr):
             pane_tab_x_offset += len(label)
             rendered_width += len(label)
 
-        if total_tabs_width > avail_width and len(category_names) <= 1:
+        if total_tabs_width > avail_width and len(command_names) <= 1:
             indicator_width = max(3, int(avail_width * (avail_width / total_tabs_width)))
             indicator_pos = int((avail_width - indicator_width) * (pane_scroll_offset / max(1, total_tabs_width - avail_width)))
             indicator_pos = max(0, min(avail_width - indicator_width, indicator_pos))
@@ -154,12 +154,12 @@ def main_menu(stdscr):
             except curses.error:
                 pass
 
-        # --- Category Sub-Tabs ---
-        if len(category_names) > 1:
+        # --- Command Sub-Tabs ---
+        if len(command_names) > 1:
             tab_x_offset = 2
-            for i, name in enumerate(category_names):
+            for i, name in enumerate(command_names):
                 attr = curses.A_BOLD | curses.color_pair(current_pane['color_pair'])
-                if i == selected_cat_idx:
+                if i == selected_cmd_idx:
                     attr |= curses.A_REVERSE
                 label = f" {name} "
                 if tab_x_offset >= cols - 2:
@@ -171,8 +171,8 @@ def main_menu(stdscr):
                 tab_x_offset += len(label) + 1
 
         # --- Script List ---
-        current_cat_name = category_names[selected_cat_idx] if category_names else None
-        current_scripts = current_pane['categories'].get(current_cat_name, [])
+        current_cmd_name = command_names[selected_cmd_idx] if command_names else None
+        current_scripts = current_pane['commands'].get(current_cmd_name, [])
         selected_item_idx = current_pane['selected_item_idx']
         scroll_top = current_pane['scroll_top']
 
@@ -298,22 +298,22 @@ def main_menu(stdscr):
         elif ch in (ord("r"), ord("R")):
             for i, (name, directory, color_pair) in enumerate(PANES):
                 scripts = discover_scripts(directory)
-                categories = categorize(scripts)
+                commands = categorize(scripts)
                 pane_data[i] = {
                     'name': name,
                     'directory': directory,
                     'color_pair': color_pair,
                     'scripts': scripts,
-                    'categories': categories,
-                    'category_names': list(categories.keys()),
-                    'selected_cat_idx': 0,
+                    'commands': commands,
+                    'command_names': list(commands.keys()),
+                    'selected_cmd_idx': 0,
                     'selected_item_idx': 0,
                     'scroll_top': 0,
                 }
             current_pane = pane_data[selected_pane_idx]
         elif ch in (10, 13, curses.KEY_ENTER):
-            curr_cat_name = current_pane['category_names'][current_pane['selected_cat_idx']] if current_pane['category_names'] else None
-            curr_scripts = current_pane['categories'].get(curr_cat_name, [])
+            curr_cmd_name = current_pane['command_names'][current_pane['selected_cmd_idx']] if current_pane['command_names'] else None
+            curr_scripts = current_pane['commands'].get(curr_cmd_name, [])
             if curr_scripts:
                 # Expand bottom pane to 75% and create output window
                 script_running = True

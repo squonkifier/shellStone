@@ -1,6 +1,6 @@
 #!/bin/bash
-# Admin-Meta: Title: Network Info
-# Admin-Meta: Description: Summary of network devices, their IPs and interfaces
+# stonemeta: title: Network Info
+# stonemeta: description: Summary of network devices, their IPs and interfaces
 #
 
 ip addr

@@ -13,7 +13,7 @@
     [
       "Filesystem",
       "filesystem",
-      0
+      4
     ],
     [
       "Networking",
@@ -36,9 +36,9 @@
       1
     ]
   ],
-  "META_TITLE_RE": "^#\\s*Admin-Meta:\\s*Title:\\s*(.+)$",
-  "META_DESC_RE": "^#\\s*Admin-Meta:\\s*Description:\\s*(.+)$",
-  "META_CAT_RE": "^#\\s*Admin-Meta:\\s*Category:\\s*(.+)$",
+  "META_TITLE_RE": "^#\\s*stonemeta:\\s*title:\\s*(.+)$",
+  "META_DESC_RE": "^#\\s*stonemeta:\\s*description:\\s*(.+)$",
+  "META_CMD_RE": "^#\\s*stonemeta:\\s*command:\\s*(.+)$",
   "SPINNER_FRAMES": [
     "⠋",
     "⠙",

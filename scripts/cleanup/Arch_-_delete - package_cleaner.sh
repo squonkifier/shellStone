@@ -1,10 +1,8 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Arch - Delete - Yay & Pacman Caches
-# Admin-Meta: Description: Clean the package manager cache. Removes old package files to free up disk space.
+# stonemeta: title: Arch - Delete - Yay & Pacman Caches
+# stonemeta: description: Clean the package manager cache. Removes old package files to free up disk space.
+# stonemeta: command: rm -rf .cache/yay, /var/cache/pacman
 #
-# WARNING: This deletes cached .pkg files. You won't be able to downgrade without re-downloading.
-# The cache is safe to clear if you have working internet access.
-
 echo "Choose Y/n and press enter"
 read -p "> " choice
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Firewall Status
-# Admin-Meta: Description: Check iptables/nftables firewall rules. Shows current ruleset summary.
+# stonemeta: title: Firewall Status
+# stonemeta: description: Check iptables/nftables firewall rules. Shows current ruleset summary.
 #
 # Attempts to use multiple firewall backends (nft, iptables, ufw) and reports status.
 # Useful for verifying firewall is active and configured.

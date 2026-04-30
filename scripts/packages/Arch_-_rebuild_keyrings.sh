@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Arch - Rebuild keys
-# Admin-Meta: Description: Totally wipe and reload your package manager keyring.
+# stonemeta: title: Arch - Rebuild keys
+# stonemeta: description: Totally wipe and reload your package manager keyring.
 #
 
 echo "Are you sure? Y/n"

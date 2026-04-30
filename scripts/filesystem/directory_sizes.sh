@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Directory Sizes
-# Admin-Meta: Description: Shows the size of each subdirectory in the current or specified path.
+# stonemeta: title: Directory Sizes
+# stonemeta: description: Shows the size of each subdirectory in the current or specified path.
 #
 # Lists all immediate subdirectories sorted by size (largest first).
 # Helps identify which directories are using the most space.

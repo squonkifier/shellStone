@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Network Connectivity Tester
-# Admin-Meta: Description: Performs a series of connectivity tests including local gateway, DNS, and global internet reachability.
+# stonemeta: title: Network Connectivity Tester
+# stonemeta: description: Performs a series of connectivity tests including local gateway, DNS, and global internet reachability.
 #
 # Useful for diagnosing if an issue is local, DNS-related, or a broad ISP outage.
 

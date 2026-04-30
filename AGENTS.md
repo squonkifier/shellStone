@@ -5,8 +5,8 @@
 # PROJECT DETAILS
 This is a zero-dependency ncurses TUI for Linux system administration, with `shellstone.py` as the main entry point. Key features:
 - Discovers executable `.sh` and `.py` scripts in the `./scripts` subdirectory and its subdirectories.
-- Parses optional `Admin-Meta:` headers (Title, Description, Category) from script files (case-insensitive).
-- Parses script summaries from comment lines after the Admin-Meta Description line until the next `#` line.
+- Parses optional `stonemeta:` headers (title, description, command) from script files (case-insensitive).
+- Parses script summaries from comment lines after the stonemeta description line until the next `#` line.
 - Displays scripts in a tabbed, categorized main menu with real-time output streaming when scripts are executed.
 - For `.py` scripts, checks for a system Python interpreter (`python3` or `python`) before execution; shows a soft error if not found.
 - Visual effects: animated particle background system, spinner selection indicator.
@@ -25,18 +25,18 @@ The application has been refactored into modular components under `shellstone_mo
 **Settings Data:** (loaded from `shell.json` at runtime)
 - `SCRIPTS_DIR`: Path to scripts directory (derived from project location: parent of `shellstone_modules/`)
 - `PANES`: List of (display_name, directory, color_pair) tuples defining tabs (directory is relative to SCRIPTS_DIR)
-- `META_*_RE`: Regex patterns for parsing Admin-Meta headers
+- `META_*_RE`: Regex patterns for parsing stonemeta headers
 - `SPINNER_FRAMES`, `PARTICLE_*`: Visual effect configuration
 - `BOTTOM_HEIGHT`: Height of script summary section (14 lines)
 
 **Data Structures:**
-- `ScriptInfo` dataclass: Stores `path`, `title`, `description`, `category`, `summary`, and derived `name` property
+- `ScriptInfo` dataclass: Stores `path`, `title`, `description`, `command`, `summary`, and derived `name` property
 
 **Functions:**
 - `discover_scripts(directory)`: Finds .sh/.py files, parses metadata, sets defaults for missing fields
-- `_parse_metadata(info, path)`: Parses Admin-Meta headers from script files
-- `_parse_script_summary(path)`: Extracts summary from Admin-Meta Description until next `#` line
-- `categorize(scripts)`: Groups scripts by Category metadata
+- `_parse_metadata(info, path)`: Parses stonemeta headers from script files
+- `_parse_script_summary(path)`: Extracts summary from stonemeta description until next `#` line
+- `categorize(scripts)`: Groups scripts by command metadata
 
 ### `shellstone_modules/shellstone_output.py` (Output Window)
 - `OutputWindow` class: Full-screen curses overlay for real-time subprocess output
@@ -64,7 +64,7 @@ The application has been refactored into modular components under `shellstone_mo
 - `main(stdscr)`: Initializes curses, validates scripts dir, launches main_menu
 - `main_menu(stdscr)`: Core TUI loop
   - Pane/tab navigation (arrow keys, vi keys h/l)
-  - Category sub-tabs within panes
+  - Command sub-tabs within panes
   - Script list with scrollbar
   - Bottom section showing script summary
   - Keyboard shortcuts:

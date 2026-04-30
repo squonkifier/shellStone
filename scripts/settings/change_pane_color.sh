@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Admin-Meta: Title: Change Pane Color
-# Admin-Meta: Description: Changes the color scheme for a specific pane/tab.
-# Admin-Meta: Category: Settings
+# stonemeta: title: Change Pane Color
+# stonemeta: description: Changes the color scheme for a specific pane/tab.
+# stonemeta: command: Settings
 #
 
 set -e

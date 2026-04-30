@@ -33,7 +33,7 @@ PANES = [
 
 META_TITLE_RE = re.compile(_config["META_TITLE_RE"], re.IGNORECASE)
 META_DESC_RE = re.compile(_config["META_DESC_RE"], re.IGNORECASE)
-META_CAT_RE = re.compile(_config["META_CAT_RE"], re.IGNORECASE)
+META_CMD_RE = re.compile(_config["META_CMD_RE"], re.IGNORECASE)
 
 # Spinner frames for selection indicator
 SPINNER_FRAMES = _config["SPINNER_FRAMES"]
@@ -54,8 +54,9 @@ class ScriptInfo:
     path: Path
     title: str = ""
     description: str = ""
-    category: str = "General"
+    command: str = "General"
     summary: str = ""
+    command_explicit: bool = False  # Track if command was set via stonemeta
 
     @property
     def name(self) -> str:
@@ -78,23 +79,23 @@ def discover_scripts(directory: Path) -> list[ScriptInfo]:
         if entry.is_file() and os.access(entry, os.X_OK):
             info = ScriptInfo(path=entry)
             _parse_metadata(info, entry)
-            info.summary = _parse_script_summary(entry)
+            info.summary = _parse_script_summary(entry, info.command, info.command_explicit)
             scripts.append(info)
 
-    # Set defaults for any missing titles / categories
+    # Set defaults for any missing titles / commands
     for s in scripts:
         if not s.title:
             s.title = s.name.replace("_", " ").title()
         if not s.description:
             s.description = f"Run {s.title}"
-        if s.category == "General":
-            s.category = "Scripts"
+        if s.command == "General":
+            s.command = "Scripts"
 
     return scripts
 
 
 def _parse_metadata(info: ScriptInfo, path: Path) -> None:
-    """Parse Admin-Meta headers from anywhere in the script."""
+    """Parse stonemeta headers from anywhere in the script."""
     with open(path, encoding="utf-8", errors="replace") as fh:
         for line in fh:
             stripped = line.strip()
@@ -106,25 +107,24 @@ def _parse_metadata(info: ScriptInfo, path: Path) -> None:
             if m:
                 info.description = m.group(1).strip()
                 continue
-            m = META_CAT_RE.match(stripped)
+            m = META_CMD_RE.match(stripped)
             if m:
-                info.category = m.group(1).strip()
+                info.command = m.group(1).strip()
+                info.command_explicit = True
 
 
 def categorize(scripts: list[ScriptInfo]) -> dict[str, list[ScriptInfo]]:
-    """Group scripts by their category metadata."""
-    groups: dict[str, list[ScriptInfo]] = {}
-    for s in scripts:
-        groups.setdefault(s.category, []).append(s)
-    return dict(sorted(groups.items()))
+    """Group scripts into a single category (command metadata is now shown in summary)."""
+    return {"Scripts": scripts}
 
 
-def _parse_script_summary(path: Path) -> str:
-    """Extract script summary from Admin-Meta: Description line until next # line.
+def _parse_script_summary(path: Path, command: str = "", command_explicit: bool = False) -> str:
+    """Extract script summary from stonemeta: description line.
 
-    Finds the line starting with '# Admin-Meta: Description: ', takes everything after
-    'Description: ' on that line, then collects all subsequent lines until encountering
-    the very next line that starts with '#'.
+    Finds the line starting with '# stonemeta: description: ', takes everything after
+    'description: ' on that line, then collects subsequent comment lines (starting with '#')
+    as filler text until encountering a blank line or non-comment line.
+    Finally, adds the command line (if explicitly set) with a blank line separating it from the description.
     """
     import os
     try:
@@ -133,7 +133,7 @@ def _parse_script_summary(path: Path) -> str:
     except Exception:
         return "No Description Found"
 
-    # Find the Admin-Meta: Description line
+    # Find the stonemeta: description line
     desc_line_idx = None
     initial_text = ""
     for i, line in enumerate(lines):
@@ -151,16 +151,44 @@ def _parse_script_summary(path: Path) -> str:
     if initial_text:
         summary_parts.append(initial_text)
 
-    # Collect subsequent lines until we hit a line starting with '#'
+    # Collect subsequent comment lines as filler text
+    # Skip metadata lines and blank lines, then collect comments until non-comment
+    filler_text = []
+    started_collecting = False
+    
     for line in lines[desc_line_idx + 1:]:
         stripped = line.strip()
-        if stripped.startswith('#'):
-            # Found the very next # line - stop collecting
+        
+        # Skip metadata lines
+        if META_TITLE_RE.match(stripped) or META_DESC_RE.match(stripped) or META_CMD_RE.match(stripped):
+            continue
+        
+        # If blank line and not started collecting yet, skip it
+        if not stripped:
+            if not started_collecting:
+                continue
+            else:
+                # Blank line after collecting has started - stop
+                break
+        
+        # If not a comment line, stop collecting
+        if not stripped.startswith('#'):
             break
-        # Add non-# lines (strip newline and whitespace)
-        text = line.rstrip('\n').strip()
+        
+        # Extract text after the comment character
+        text = stripped.lstrip('#').strip()
         if text:
-            summary_parts.append(text)
+            filler_text.append(text)
+            started_collecting = True
+
+    # Add filler text if any
+    if filler_text:
+        summary_parts.extend(filler_text)
+
+    # Add blank line then command line (only if command was explicitly set via metadata)
+    if command_explicit and command:
+        summary_parts.append("")  # blank line
+        summary_parts.append(f"command: {command}")
 
     return '\n'.join(summary_parts) if summary_parts else "No Description Found"
 

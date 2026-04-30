@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Block device info
-# Admin-Meta: Description: Shows basic information about attached storage drives
+# stonemeta: title: Block device info
+# stonemeta: description: Shows basic information about attached storage drives
 #
 
 lsblk -f

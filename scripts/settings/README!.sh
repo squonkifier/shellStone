@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Readme!
-# Admin-Meta: Description: Tells you how this program works!
-# Admin-Meta: Category: Settings
+# stonemeta: title: Readme!
+# stonemeta: description: Tells you how this program works!
 #
 echo -e "\x1b[31m⚬○ squonkAdmin ○⚬\x1b[0m"
 echo "tiny terminal UI for fancy presentation of pre-commented shell scripts stored locally"
@@ -19,13 +18,13 @@ echo ""
 echo -e "\x1b[31m⚬○ Meta-data ○⚬\x1b[0m"
 echo "Metadata defined inside the .sh or .py itself is shown in the main menu, to help with organization and reminders. Use a comment as shown below to add metadata."
 echo ""
-echo -e "\x1b[1;32m# Admin-Meta: Title: \x1b[0m"
+echo -e "\x1b[1;32m# stonemeta: title: \x1b[0m"
 echo "Providess script name in menu. Otherwise, parses it from .sh filename"
 echo ""
 
-echo -e "\x1b[1;32m# Admin-Meta: Description: \x1b[0m"
+echo -e "\x1b[1;32m# stonemeta: description: \x1b[0m"
 echo "Provides summary of the script in the main presentation area"
 echo ""
 
-echo -e "\x1b[1;32m# Admin-Meta: Category: \x1b[0m"
+echo -e "\x1b[1;32m# stonemeta: command: \x1b[0m"
 echo "TBD"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Port Scanner (Local)
-# Admin-Meta: Description: Scans for open ports on localhost or a specified target. Common ports only.
+# stonemeta: title: Port Scanner (Local)
+# stonemeta: description: Scans for open ports on localhost or a specified target. Common ports only.
 #
 # Scans ports 21,22,23,25,53,80,110,143,443,465,587,993,995,3306,5432,8080,8443
 # Uses bash /dev/tcp for lightweight scanning (no nmap required).

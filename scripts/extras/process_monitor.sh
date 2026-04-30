@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Process Monitor
-# Admin-Meta: Description: Shows top processes by CPU and memory usage. Real-time system resource overview.
+# stonemeta: title: Process Monitor
+# stonemeta: description: Shows top processes by CPU and memory usage. Real-time system resource overview.
 #
 # Displays the top 15 processes sorted by CPU usage, then memory usage.
 # Similar to 'top' but in a compact, one-shot format.

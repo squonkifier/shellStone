@@ -1,6 +1,6 @@
 #!/bin/bash
-# Admin-Meta: Title: System Information
-# Admin-Meta: Description: Similar to Neofetch, but with no dependencies!
+# stonemeta: title: System Information
+# stonemeta: description: Similar to Neofetch, but with no dependencies!
 #
 
 #!/usr/bin/env bash

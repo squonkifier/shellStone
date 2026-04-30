@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Arch - Refresh keys
-# Admin-Meta: Description: Did your updates start to fail with low trust or GPG style errors? Might be an old keyring. Update it with this!
+# stonemeta: title: Arch - Refresh keys
+# stonemeta: description: Did your updates start to fail with low trust or GPG style errors? Might be an old keyring. Update it with this!
 #
 
 echo "Are you sure? Y/n"

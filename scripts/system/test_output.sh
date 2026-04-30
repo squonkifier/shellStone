@@ -1,6 +1,6 @@
 #!/bin/bash
-# Admin-Meta: Title: ANSI Tests
-# Admin-Meta: Description: Test ANSI colors and line breaks
+# stonemeta: title: ANSI Tests
+# stonemeta: description: Test ANSI colors and line breaks
 #
 
 echo -e "\x1b[31mRed Text\x1b[0m"

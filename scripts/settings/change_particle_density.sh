@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Admin-Meta: Title: Change Particle Density
-# Admin-Meta: Description: Modifies the particle density for the background animation effect.
-# Admin-Meta: Category: Settings
+# stonemeta: title: Change Particle Density
+# stonemeta: description: Modifies the particle density for the background animation effect.
+# stonemeta: command: Settings
 #
 
 set -e

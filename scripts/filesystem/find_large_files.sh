@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Find Large Files
-# Admin-Meta: Description: Find large files taking up space. Scans from a starting directory and lists files sorted by size.
+# stonemeta: title: Find Large Files
+# stonemeta: description: Find large files taking up space. Scans from a starting directory and lists files sorted by size.
 #
 # Shows the 20 largest files in the specified directory and subdirectories.
 # Useful for tracking down space hogs.

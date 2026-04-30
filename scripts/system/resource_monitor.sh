@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: System Resource Monitor
-# Admin-Meta: Description: A real-time, lightweight TUI dashboard showing CPU, Memory, Disk, and Network usage.
+# stonemeta: title: System Resource Monitor
+# stonemeta: description: A real-time, lightweight TUI dashboard showing CPU, Memory, Disk, and Network usage.
 #
 # Uses 'top' and 'df' in a loop to provide a quick overview of system vitals.
 # Press Ctrl+C to exit the monitoring view.

@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Admin-Meta: Title: Your Script Name Here!
-# Admin-Meta: Description: Description Here!
+# stonemeta: title: Your Script Name Here!
+# stonemeta: description: Description Here!
 #
 
 wine sickgame.exe

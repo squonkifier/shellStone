@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Disk Summary
-# Admin-Meta: Description: Shows current filesystem layout and storage amounts
+# stonemeta: title: Disk Summary
+# stonemeta: description: Shows current filesystem layout and storage amounts
 #
 
 echo "=== Filesystem Disk Usage ==="

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Arch - Update - Pacman
-# Admin-Meta: Description: Basic interactive system update for base system packages, using the core Pacman package manager.
+# stonemeta: title: Arch - Update - Pacman
+# stonemeta: description: Basic interactive system update for base system packages, using the core Pacman package manager.
 #
 
 echo "Please enter your root password:"

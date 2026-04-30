@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Arch - Export - Packagelist
-# Admin-Meta: Description: Export a list of all installed packages to ~/.packagelist.log
+# stonemeta: title: Arch - Export - Packagelist
+# stonemeta: description: Export a list of all installed packages to ~/.packagelist.log
 #
 
 pacman -Qq | tee ~/packagelist.log

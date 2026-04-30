@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: List Users
-# Admin-Meta: Description: Shows currently logged in users
+# stonemeta: title: List Users
+# stonemeta: description: Shows currently logged in users
 #
 
 echo "=== System Users ==="

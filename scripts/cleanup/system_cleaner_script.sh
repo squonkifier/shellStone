@@ -1,6 +1,8 @@
 #!/bin/bash
-# Admin-Meta: Title: Logs Cleaner
-# Admin-Meta: Description: Deletes basic system caches and logs for quick, clean recovery of storage space
+# stonemeta: title: Logs Cleaner
+# stonemeta: description: Deletes basic system caches and logs for quick, clean recovery of storage space
+# stonemeta: command: journalctl --vacuum-time=1m, rm -Rf /var/lib/systemd/coredump, /usr/lib/debug
+#
 
 # Track total size of deleted files in bytes
 total_deleted=0
@@ -22,12 +24,6 @@ echo "Please enter your root password:"
 sudo journalctl --vacuum-time=1m 2>/dev/null
 echo -e "\x1b[1;32mVacuuming system journal using journalctl\x1b[0m"
 echo "journalctl --vacuum-time=1m"
-echo ""
-
-# delete pacman package cache
-echo -e "\x1b[1;32mDeleting the package manager cache\x1b[0m"
-calc_size /var/cache/pacman/pkg
-sudo rm -Rf /var/cache/pacman/pkg/* 2>/dev/null
 echo ""
 
 # remove old kernel dump logs

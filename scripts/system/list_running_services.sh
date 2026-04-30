@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Admin-Meta: Title: Systemd - List System Services
-# Admin-Meta: Description: List all systemd services with their current status. Shows active, inactive, failed, and enabled/disabled states.
+# stonemeta: title: Systemd - List System Services
+# stonemeta: description: List all systemd services with their current status. Shows active, inactive, failed, and enabled/disabled states.
 #
 # Services are displayed in columns: UNIT, LOAD, ACTIVE, SUB, and DESCRIPTION.
 # Use arrow keys to scroll, Q to return.
