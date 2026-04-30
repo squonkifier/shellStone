@@ -7,18 +7,24 @@ read TARGET_DIR
 TARGET_DIR="${TARGET_DIR:-$HOME/Applications/memstone}"
 SHELLSTONE_BIN="$TARGET_DIR/memstone.py"
 
+BIN_DIR="$TARGET_DIR/bin"
+
 echo "Installing memstone to: $TARGET_DIR"
 
 mkdir -p "$TARGET_DIR"
+mkdir -p "$BIN_DIR"
 
 echo "Copying files..."
 cp -r memstone.py memstone_modules memstone.json scripts "$TARGET_DIR/"
+cp memstone "$BIN_DIR/"
+rm -f "$TARGET_DIR/memstone"
 
+chmod +x "$BIN_DIR/memstone"
 chmod +x "$TARGET_DIR/memstone.py"
 
 update_shell_config() {
     local config_file="$1"
-    local path_line="export PATH=\"$TARGET_DIR:\$PATH\""
+    local path_line="export PATH=\"$BIN_DIR:\$PATH\""
 
     if [ -f "$config_file" ]; then
         if grep -q "memstone" "$config_file" 2>/dev/null; then
