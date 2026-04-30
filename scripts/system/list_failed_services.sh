@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# stonemeta: title: Systemd - List Halted Services
+# stonemeta: title: List Halted Services (Systemd)
 # stonemeta: description: List all systemd services that have failed, are inactive, or are in a halted state. Helps identify services that need attention.
-#
+# stonemeta: command: systemctl list-units --type=service --state=[failed/inactive/activating]
 # Shows failed units, inactive (dead) services, and services with error conditions.
 # Use arrow keys to scroll, Q to return.
 

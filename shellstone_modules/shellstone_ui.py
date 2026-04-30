@@ -255,21 +255,29 @@ def main_menu(stdscr):
                     content_w = cols - 4
                     display_lines = []
                     for line in summary.split('\n'):
+                        is_command = line.lower().startswith('command:')
+                        if is_command:
+                            # Strip the 'command:' prefix for display
+                            line = line[len('command:'):].lstrip()
                         while len(line) > content_w:
                             break_pos = line.rfind(' ', 0, content_w)
                             if break_pos == -1:
                                 break_pos = content_w
-                            display_lines.append(line[:break_pos].rstrip())
+                            display_lines.append((line[:break_pos].rstrip(), is_command))
                             line = line[break_pos:].lstrip()
                         if line:
-                            display_lines.append(line)
+                            display_lines.append((line, is_command))
                     max_display_lines = bottom_display_h - 1
-                    for i, line in enumerate(display_lines[:max_display_lines]):
+                    for i, (line, is_command) in enumerate(display_lines[:max_display_lines]):
                         y = bottom_start + 1 + i
                         if y >= lines - 2:
                             break
                         try:
-                            stdscr.addstr(y, 2, line, curses.color_pair(6))
+                            # Render 'command:' lines (and their wrapped continuations) in green
+                            if is_command:
+                                stdscr.addstr(y, 2, line, curses.color_pair(2))
+                            else:
+                                stdscr.addstr(y, 2, line, curses.color_pair(6))
                         except curses.error:
                             pass
 
