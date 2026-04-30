@@ -15,7 +15,7 @@ from pathlib import Path
 # Bundled locations (relative to this file)
 BUNDLED_BASE_DIR = Path(__file__).parent.parent
 BUNDLED_SCRIPTS_DIR = BUNDLED_BASE_DIR / "scripts"
-BUNDLED_CONFIG_PATH = BUNDLED_BASE_DIR / "memstone.json"
+BUNDLED_CONFIG_PATH = BUNDLED_BASE_DIR / "config.json"
 
 # Global state for configuration (will be initialized in load_configuration)
 SCRIPTS_DIR = BUNDLED_SCRIPTS_DIR
