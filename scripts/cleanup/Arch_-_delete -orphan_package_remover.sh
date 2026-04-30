@@ -1,5 +1,5 @@
 #!/bin/bash
-# stonemeta: title: Arch - Delete - Orphaned Packages
+# stonemeta: title: Delete Orphaned Packages
 # stonemeta: description: Remove orphaned packages, sometimes recovers lots of space after lots of compiling! Destructive unless you have internet access, in which case, it's safe to use with no fear. Run it and remove old packages that aren't strictly required. Usually these are compiler suites and old versions of frameworks.
 # stonemeta: command: pacman -Rs $(pacman -Qdtq)
 #

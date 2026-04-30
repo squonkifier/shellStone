@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# stonemeta: title: Arch - Delete - Yay & Pacman Caches
+# stonemeta: title: Delete Package Caches
 # stonemeta: description: Clean the package manager cache. Removes old package files to free up disk space.
 # stonemeta: command: rm -rf .cache/yay, /var/cache/pacman
 #
