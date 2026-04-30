@@ -5,6 +5,9 @@
 echo -e "\x1b[1;32mFiles will be saved in: $PWD/scraped\x1b[0m"
 echo "Please input a URL to scrape:"
 read URL
+echo "Please input the file extensions you want to download from the page, separated by commas. [.zip,mp3,etc]"
+read FILETYPES
+FILETYPES=$(echo "$FILETYPES" | tr ',' '|')
 SCRAPED_DIR="$PWD/scraped"
 mkdir -p "$SCRAPED_DIR"
 
@@ -18,7 +21,7 @@ echo "Fetching links from: $URL"
 # sed: extracts the URL from the href attribute
 # Sort and uniq to remove duplicate links
 LINKS=$(wget -q -O - "$URL" | \
-        grep -E -o 'href="[^"]*\.(zip|mp3|ogg|rar|tar|gz)"' | \
+        grep -E -o "href=\"[^\"]*\.($FILETYPES)\"" | \
         sed 's/.*href="\([^"]*\)".*/\1/' | \
         sort -u)
 
